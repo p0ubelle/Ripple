@@ -3,10 +3,8 @@ from flask import Flask, request, render_template
 app = Flask(__name__)
 
 
-@app.route('/p0ubelle', methods=['POST'])
+@app.route('/', methods=['GET'])
 def getdata():
-    data = request.json
-    print(data)
     return render_template('index.html')
 
 
