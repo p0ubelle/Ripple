@@ -15,7 +15,6 @@ if getattr(sys, 'frozen', False):
     theme_path = os.path.join(sys._MEIPASS, "themes", "coffee.json")
 else:
     theme_path = "themes\\coffee.json"
-print(dir(sys))
 
 customtkinter.set_default_color_theme(theme_path)
 

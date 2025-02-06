@@ -3,9 +3,10 @@ import requests
 import os
 import pathlib
 import customtkinter
+from packaging import version as vs
 
 
-INSTALLED_VERSION = "v0.0.1-alpha"  # Release
+INSTALLED_VERSION = "v0.0.2-alpha"  # Release
 
 
 def create_frame(tag_name, body, published_date, size, download_url, install_update):
@@ -91,9 +92,15 @@ def check_update():
         with open(pin_file_path, "r") as f:
             version = f.read().strip()
 
+    program_version = vs.parse(INSTALLED_VERSION)
+    already_installed_version = vs.parse(version)
+    if program_version > already_installed_version:
+        version = INSTALLED_VERSION
+        with open(pin_file_path, "w") as f:
+            f.write(version)
+
 
     latest_release = get_latest_release()
-
 
     if latest_release:
         if latest_release[0] != version:
