@@ -7,28 +7,25 @@ from customtkinter import filedialog
 from src.riot import launch_riot_client
 from src.cb import set_clipboard
 from src.importacc import extract_accounts
-from src.pin import check_first_time
+from src.pin import check_pin
 from src.update import check_update
 
 # Set the default color theme
 if getattr(sys, 'frozen', False):
-    # If the app is frozen (compiled into .exe), use the path inside the temporary folder
     theme_path = os.path.join(sys._MEIPASS, "themes", "coffee.json")
 else:
-    # If running from source, use the relative path
     theme_path = "themes\\coffee.json"
+print(dir(sys))
 
 customtkinter.set_default_color_theme(theme_path)
 
 
-
-def ripple():
-    app = Ribble()
+def launch_ripple():
+    app = Ripple()
     app.mainloop()
 
 
-
-class Ribble(customtkinter.CTk):
+class Ripple(customtkinter.CTk):
     def __init__(self):
         super().__init__()
         self.geometry("700x400")
@@ -75,11 +72,10 @@ class Ribble(customtkinter.CTk):
         path = filedialog.askopenfilename()
         extract_accounts(self=self, file=path)
 
-
-
 if __name__ == "__main__":
-    if check_first_time() == True:
+    if check_pin() == True:
+        check_update()
         os.system("cls")
-        ripple()
+        launch_ripple()
     else:
-        print(check_first_time())
+        print(check_pin())
